@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Upload</title>
+</head>
+<body>
+    <form action="/" method="post">
+        <p><input type="file" accept="image/*" name="image"/></p>
+        <p><input type="text" name="name" id=""></p>
+        <textarea name="caption" placeholder="Caption goes here" re id="" cols="30" rows="10"> </textarea>
+        <p><button type="submit">Submit</button></p>
+    </form>
+    <div class="container">
+        <% image.forEach( (image) => { %>
+            <img src="data:image/<%= image.img.contentType %>;base64,<%= image.img.data.toString('base64') %>" alt="" srcset="">
+            <h5><%= image.name %></h5>
+            <p><%= image.caption %></p>
+        <% } ) %>
+    </div>
+</body>
+</html>

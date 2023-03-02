@@ -9,30 +9,28 @@ const storage = multer.diskStorage({
         cb(null, 'uploads')
     },
     filename: (req, file, cb) => {
-        cb(null, `${file.fieldname} - ${Date.now()}`)
+        cb(null, `${file.fieldname}-${Date.now()}`)
     }
 })
 
 const upload = multer({storage: storage})
 
 const index_route = (req, res) => {
-    image.find( {}, (err, image) => {
+    image.find( {}, (err, images) => {
         if(err) {
             console.log(err)
         }else{
-            res.render('index' , {image: image})
+            res.render('index' , {images: images})
         }
     })
 }
 
-const image_post = (upload.single('image'), (req , res, next)  => {
-    console.log(req.body.name)
-    console.log(req.files)
+const image_post =  (req , res, next)  => {
     const deets = {
         name: req.body.name,
         caption: req.body.caption,
         image: {
-            data: fs.readFileSync(path.join(`${__dirname}/uploads/${req.file.filename}`)),
+            data: fs.readFileSync(path.join(`${__dirname}/../uploads/${req.file.filename}`)),
             contentType:'image/png'
         }
     }
@@ -44,10 +42,11 @@ const image_post = (upload.single('image'), (req , res, next)  => {
             res.redirect('/')
         }
     })
-})
+}
 
 
 module.exports = {
     index_route,
-    image_post
+    image_post,
+    upload
 }

@@ -7,17 +7,18 @@
     <title>Image Upload</title>
 </head>
 <body>
-    <form action="/" method="post">
+    <form action="/" method="post" enctype="multipart/form-data">
         <p><input type="file" accept="image/*" name="image"/></p>
         <p><input type="text" name="name" id=""></p>
         <textarea name="caption" placeholder="Caption goes here" re id="" cols="30" rows="10"> </textarea>
         <p><button type="submit">Submit</button></p>
     </form>
     <div class="container">
-        <% image.forEach( (image) => { %>
-            <img src="data:image/<%= image.img.contentType %>;base64,<%= image.img.data.toString('base64') %>" alt="" srcset="">
-            <h5><%= image.name %></h5>
-            <p><%= image.caption %></p>
+        <% images.forEach( (item) => { %>
+            <img src="data:image/<%=item.image.contentType%>;base64
+            <%=item.image.data.toString('base64')%>">
+            <h5><%= item.name %></h5>
+            <p><%= item.caption %></p>
         <% } ) %>
     </div>
 </body>
